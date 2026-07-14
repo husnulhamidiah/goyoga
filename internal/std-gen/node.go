@@ -15,23 +15,27 @@ func writeNode(dir string, api parser.API) error {
 		if !strings.HasPrefix(fn.Name, "YGNode") || unsupportedFunction(fn) {
 			continue
 		}
-		if len(fn.Params) == 0 || (fn.Params[0].Type.Name != "YGNodeRef" && fn.Params[0].Type.Name != "YGNodeConstRef") {
-			continue
-		}
 		if strings.HasSuffix(fn.Name, "ToString") {
 			continue
 		}
-		switch fn.Name {
-		case "YGNodeNew":
+		if fn.Name == "YGNodeNew" {
 			w.Line("func NewNode() *Node {")
 			w.Line("return wrapNode(yoga.NodeNew())")
 			w.Line("}")
 			w.Line("")
-		case "YGNodeNewWithConfig":
+			continue
+		}
+		if fn.Name == "YGNodeNewWithConfig" {
 			w.Line("func NewNodeWithConfig(config *Config) *Node {")
 			w.Line("return wrapNode(yoga.NodeNewWithConfig(config.yogaConstRef()))")
 			w.Line("}")
 			w.Line("")
+			continue
+		}
+		if len(fn.Params) == 0 || (fn.Params[0].Type.Name != "YGNodeRef" && fn.Params[0].Type.Name != "YGNodeConstRef") {
+			continue
+		}
+		switch fn.Name {
 		case "YGNodeFree":
 			writeNodeFree(&w, "Free", "NodeFree")
 			w.Line("func (n *Node) Destroy() {")

@@ -2,6 +2,14 @@ package goyoga
 
 import yoga "github.com/husnulhamidiah/goyoga/gen"
 
+func NewNode() *Node {
+	return wrapNode(yoga.NodeNew())
+}
+
+func NewNodeWithConfig(config *Config) *Node {
+	return wrapNode(yoga.NodeNewWithConfig(config.yogaConstRef()))
+}
+
 func (n *Node) Clone() *Node {
 	if n == nil {
 		return nil
