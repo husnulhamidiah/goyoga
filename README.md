@@ -10,9 +10,13 @@ general C parser.
 
 - Go 1.25+
 - A C/C++ toolchain usable by cgo
-- The `yoga/` submodule checked out
+- `CGO_ENABLED=1`
 
-If the submodule is missing:
+The published module vendors the Yoga sources needed for cgo builds under
+`native/yoga`, so users do not need to initialize the `yoga/` submodule.
+
+For generator development, the `yoga/` submodule is still used as the source
+header checkout. If it is missing:
 
 ```sh
 git submodule update --init --recursive
@@ -70,4 +74,6 @@ example `YGNodeNew` becomes `NodeNew`, and `YGDirectionLTR` becomes
 - `internal/parser`: Yoga-specific tokenizer and parser
 - `internal/gen`: Go binding writer
 - `gen`: generated cgo bindings
-- `yoga`: Facebook Yoga submodule
+- `std`: idiomatic Go wrapper over `gen`
+- `native/yoga`: vendored Yoga headers and C++ sources used by cgo builds
+- `yoga`: Facebook Yoga submodule used when regenerating bindings

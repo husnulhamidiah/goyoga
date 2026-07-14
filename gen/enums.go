@@ -1,8 +1,8 @@
 package yoga
 
 /*
-#cgo CFLAGS: -I${SRCDIR}/../yoga
-#cgo CXXFLAGS: -I${SRCDIR}/../yoga -std=c++20
+#cgo CFLAGS: -I${SRCDIR}/../native/yoga
+#cgo CXXFLAGS: -I${SRCDIR}/../native/yoga -std=c++20
 #cgo darwin LDFLAGS: -lc++
 #cgo linux LDFLAGS: -lstdc++
 #include <yoga/Yoga.h>
